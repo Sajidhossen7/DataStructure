@@ -1,36 +1,68 @@
 #include<iostream>
-#include<stack>
-using namesapace std;
-class Stack
-{
-    private:
-    int s[max_size];
-    int top;
+using namespace std;
+
+class stack{
 
     public:
-    stack() : top(-1){}
-    bool push(int value)
-    {
-        if (top >= max_size -1)
-        {
-            cout<<"cannot push "<< value << endl;
+    int size;
+    int *arr;
+    int top;
+
+    stack(int size){
+        this-> size=size;
+        arr = new int[size];
+        top = -1;
+    
+    }
+    void push(int element){
+        if(size - top > 1){
+        top++;
+        arr[top] = element;
+        }
+        else {
+            cout<<"stack overflow"<< endl;
+        }
+
+    }
+    void pop(){
+        if (top >= 0){
+            top--;
+        }
+        else{
+            cout<<"stack is empty"<< endl;
+        }
+
+    }
+    int peek(){
+        if (top >= 0 && top<size ){
+             return arr[top];
+             }
+             else {
+                cout<<"stack is Empty"<<endl;
+                return -1;
+             }
+
+    }
+    bool isEmpty(){
+        if (top == -1){
+            return true;
+        }
+        else {
             return false;
         }
-        s[++top] = value;
-        cout<<"pushed : "<< value << endl;
-        return true;
-    
 
     }
-    bool pop(int &value)
-    {
-        if(top<0)
-        cout<<"can not pop"<<endl;
-        return false;
-    }
-    value = s[top--];
-    cout<<"poped : "<< value <<endl;
-    return true;
 
-
+};
+int main() {
+    stack s(10);
+    s.push(11);
+    s.push(23);
+    s.push(13);
+    s.pop();
+    s.pop();
+    s.pop();
+    s.pop();
+    cout<<s.peek() << endl;
+    return 0;
 }
